@@ -1,0 +1,1078 @@
+/* ==========================================================================
+   СТИЛЬ: МНОГОСТРАНИЧНЫЙ ЗИН ДЛЯ КАТИ (6 СЛАЙДОВ)
+   Чистая современная типографика (Montserrat), никаких кривых шрифтов
+   ========================================================================== */
+
+:root {
+  --bg-table: #F7F3EE;
+  --kraft-paper: #E6DACD;
+  --card-white: #FFFFFF;
+  --text-dark: #241D1A;
+  --text-muted: #6E5F57;
+  --rose-accent: #C87580;
+  --rose-deep: #9E3D4B;
+  --rose-light: #FBECEE;
+  --card-border: #EAE2D8;
+  --shadow-card: 0 14px 34px -10px rgba(42, 33, 29, 0.08);
+  --radius-card: 20px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background-color: var(--bg-table);
+  color: var(--text-dark);
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Бесшовный кружевной фон */
+.lace-ambient-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  background: 
+    radial-gradient(circle at center, rgba(247, 243, 238, 0.90) 15%, rgba(247, 243, 238, 0.97) 90%),
+    url('images/lace-texture-1.jpg') no-repeat center center fixed;
+  background-size: cover;
+}
+
+/* Контейнер для падающих плюшевых игрушек */
+.falling-jelly-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 999;
+  overflow: hidden;
+}
+
+.falling-jelly-item {
+  position: absolute;
+  top: -120px;
+  pointer-events: auto;
+  user-select: none;
+  cursor: pointer;
+  filter: drop-shadow(0 10px 20px rgba(0,0,0,0.12));
+  animation: fallPlush linear forwards;
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.falling-jelly-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+@keyframes fallPlush {
+  0% {
+    top: -120px;
+    transform: rotate(var(--init-rot)) scale(var(--scale));
+  }
+  100% {
+    top: 105vh;
+    transform: rotate(var(--end-rot)) scale(var(--scale));
+  }
+}
+
+/* ==========================================================================
+   ШАГ 0: ЭЛЕГАНТНАЯ РАСПАКОВКА ПОСЫЛКИ (БЕЗ НАЛОЖЕНИЙ И ПЕРЕКОСОВ)
+   ========================================================================== */
+
+.parcel-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgba(247, 243, 238, 0.96);
+  backdrop-filter: blur(10px);
+  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.parcel-screen.opened {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.parcel-stage {
+  perspective: 1000px;
+  max-width: 380px;
+  width: 100%;
+}
+
+.parcel-package {
+  background: #EBE0D3;
+  border: 1px solid #D6C4B2;
+  border-radius: 20px;
+  width: 100%;
+  padding: 34px 24px;
+  position: relative;
+  box-shadow: 0 24px 50px -10px rgba(54, 40, 33, 0.18);
+  text-align: center;
+  transform-style: preserve-3d;
+  transition: transform 0.65s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.5s ease;
+  overflow: hidden;
+}
+
+/* Шелковые атласные ленты */
+.ribbon-band {
+  position: absolute;
+  background: linear-gradient(135deg, #F3C4CB, #E29FA9);
+  box-shadow: 0 2px 8px rgba(184, 120, 130, 0.2);
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 1;
+}
+
+.ribbon-band.horiz {
+  width: 100%;
+  height: 20px;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+}
+
+.ribbon-band.vert {
+  width: 20px;
+  height: 100%;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* Контент внутри посылки */
+.parcel-inner-content {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.parcel-header-tag {
+  background: #FFFDF9;
+  border: 1px solid #DFD0C2;
+  border-radius: 12px;
+  padding: 12px 24px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+}
+
+.tag-route {
+  display: block;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  color: var(--rose-accent);
+  margin-bottom: 2px;
+}
+
+.tag-title {
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  color: var(--text-dark);
+}
+
+/* Центральный узел */
+.central-knot {
+  width: 34px;
+  height: 34px;
+  background: #D88390;
+  border-radius: 50%;
+  z-index: 4;
+  box-shadow: 0 4px 12px rgba(168, 72, 84, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s ease;
+}
+
+.knot-core {
+  width: 12px;
+  height: 12px;
+  background: #FFF;
+  border-radius: 50%;
+  opacity: 0.9;
+}
+
+.open-parcel-btn {
+  background: var(--rose-deep);
+  color: #FFF;
+  border: none;
+  border-radius: 24px;
+  padding: 13px 30px;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  font-size: 13.5px;
+  letter-spacing: 0.3px;
+  cursor: pointer;
+  box-shadow: 0 8px 22px rgba(158, 61, 75, 0.3);
+  transition: all 0.2s ease;
+}
+
+.open-parcel-btn:hover {
+  transform: translateY(-2px);
+  background: #892F3C;
+  box-shadow: 0 12px 26px rgba(158, 61, 75, 0.38);
+}
+
+.open-parcel-btn:active {
+  transform: scale(0.97);
+}
+
+.parcel-hint {
+  font-size: 11px;
+  color: #7D6B61;
+  font-weight: 500;
+}
+
+/* Анимация раскрытия посылки */
+.parcel-package.untying .central-knot {
+  transform: scale(0) rotate(180deg);
+  opacity: 0;
+}
+
+.parcel-package.untying .ribbon-band.horiz {
+  transform: translateY(-50%) scaleX(0);
+  opacity: 0;
+}
+
+.parcel-package.untying .ribbon-band.vert {
+  transform: translateX(-50%) scaleY(0);
+  opacity: 0;
+}
+
+.parcel-package.opening {
+  transform: translateY(-20px) scale(1.05);
+  opacity: 0;
+}
+
+/* ==========================================================================
+   МНОГОСТРАНИЧНЫЙ ЗИН
+   ========================================================================== */
+
+.zine-app {
+  position: relative;
+  z-index: 10;
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 16px 14px 44px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.zine-wrapper {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.zine-topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 6px 14px;
+}
+
+.zine-brand {
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: var(--text-muted);
+}
+
+.page-counter {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  color: var(--text-dark);
+  background: rgba(255, 255, 255, 0.9);
+  padding: 4px 11px;
+  border-radius: 12px;
+  border: 1px solid var(--card-border);
+}
+
+.pages-container {
+  flex: 1;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.zine-page {
+  display: none;
+  width: 100%;
+}
+
+.zine-page.active {
+  display: block;
+  animation: pageFadeIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes pageFadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.paper-card {
+  position: relative;
+  background: var(--card-white);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-card);
+  padding: 24px 20px 20px;
+  box-shadow: var(--shadow-card);
+}
+
+/* ==========================================================================
+   СЛАЙД 1: Серый зайчик & Котёнок милее всех
+   ========================================================================== */
+
+.cutout-hero-stage {
+  position: relative;
+  width: 100%;
+  height: 250px;
+  background: #FAF7F2;
+  border-radius: 16px;
+  border: 1px solid #EFE6DD;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  overflow: hidden;
+  margin-bottom: 16px;
+}
+
+.cutout-hero-img {
+  max-width: 82%;
+  max-height: 82%;
+  object-fit: contain;
+  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+  filter: drop-shadow(0 8px 18px rgba(0,0,0,0.1));
+}
+
+.cutout-hero-img:active {
+  transform: scale(0.92);
+}
+
+.bunny-thought-bubble {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: #FFF;
+  border: 1px solid #EAD8DC;
+  color: var(--rose-deep);
+  font-size: 11px;
+  font-weight: 600;
+  padding: 5px 12px;
+  border-radius: 14px;
+  opacity: 0;
+  transform: translateY(4px);
+  transition: all 0.25s ease;
+  pointer-events: none;
+  z-index: 10;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+}
+
+.bunny-thought-bubble.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Лаконичное четкое сравнение */
+.cuteness-verdict {
+  background: #FAF7F4;
+  border: 1px solid #EAE0D6;
+  border-radius: 14px;
+  padding: 12px 16px;
+  margin-bottom: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.verdict-row {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  width: 100%;
+}
+
+.verdict-label {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-muted);
+}
+
+.verdict-score {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-dark);
+}
+
+.verdict-divider {
+  height: 1px;
+  width: 100%;
+  background: #EDE2D8;
+}
+
+.verdict-row.highlight .verdict-label {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--rose-deep);
+}
+
+.verdict-row.highlight .verdict-score {
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--rose-deep);
+}
+
+.cuteness-punchline {
+  font-size: 14.5px;
+  font-weight: 500;
+  line-height: 1.5;
+  color: var(--rose-deep);
+  text-align: center;
+  margin-bottom: 16px;
+  padding: 0 6px;
+}
+
+.jelly-actions-row {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 8px;
+}
+
+.jelly-rain-toggle-btn {
+  background: var(--rose-deep);
+  color: #FFF;
+  border: none;
+  border-radius: 20px;
+  padding: 11px 24px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 6px 18px rgba(158, 61, 75, 0.24);
+  transition: all 0.2s ease;
+}
+
+.jelly-rain-toggle-btn:hover {
+  transform: translateY(-1px);
+  background: #892F3C;
+}
+
+.stage-tip {
+  font-size: 11px;
+  color: var(--text-muted);
+  text-align: center;
+}
+
+/* ==========================================================================
+   СЛАЙД 2: Билет домой
+   ========================================================================== */
+
+.ticket-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.t-badge {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  color: #FFF;
+  background: var(--text-dark);
+  padding: 4px 9px;
+  border-radius: 6px;
+}
+
+.t-sub {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  color: var(--text-muted);
+}
+
+.ticket-route {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px dashed #E2D7CC;
+  border-bottom: 1px dashed #E2D7CC;
+  padding: 18px 8px;
+  margin-bottom: 20px;
+}
+
+.route-point {
+  text-align: left;
+}
+
+.route-point.right {
+  text-align: right;
+}
+
+.city-code {
+  font-size: 28px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  color: var(--text-dark);
+  line-height: 1;
+  margin-bottom: 4px;
+}
+
+.city-name {
+  font-size: 11.5px;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.flight-path {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--rose-accent);
+}
+
+.flight-line {
+  display: inline-block;
+  width: 24px;
+  height: 1px;
+  background: #D8C8BA;
+}
+
+.flight-icon {
+  font-size: 15px;
+  transform: rotate(45deg);
+}
+
+.ticket-plan {
+  margin-bottom: 20px;
+}
+
+.plan-label {
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  color: var(--text-muted);
+  margin-bottom: 12px;
+}
+
+.plan-bullets {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+  font-size: 14px;
+  color: var(--text-dark);
+}
+
+.bullet-num {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  line-height: 20px;
+  text-align: center;
+  border-radius: 50%;
+  background: var(--rose-light);
+  color: var(--rose-deep);
+  font-size: 11px;
+  font-weight: 700;
+  margin-right: 8px;
+}
+
+.ticket-barcode {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding-top: 8px;
+}
+
+.barcode-lines {
+  width: 100%;
+  max-width: 200px;
+  height: 24px;
+  background: repeating-linear-gradient(
+    90deg,
+    #2A211D 0, #2A211D 2px,
+    transparent 2px, transparent 4px,
+    #2A211D 4px, #2A211D 5px,
+    transparent 5px, transparent 8px,
+    #2A211D 8px, #2A211D 11px,
+    transparent 11px, transparent 13px
+  );
+  opacity: 0.7;
+}
+
+.barcode-num {
+  font-family: monospace;
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: var(--text-muted);
+}
+
+/* ==========================================================================
+   СЛАЙД 3: Что мы будем есть (Меню)
+   ========================================================================== */
+
+.card-intro {
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+.card-heading {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin-bottom: 4px;
+}
+
+.card-desc {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.food-checklist {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+
+.food-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  background: #FAF7F4;
+  border: 1px solid #EAE0D6;
+  border-radius: 12px;
+  font-size: 13.5px;
+  font-weight: 500;
+  color: var(--text-dark);
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.food-item:hover {
+  border-color: #DEC8BF;
+  transform: translateX(2px);
+}
+
+.food-check-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--rose-light);
+  color: var(--rose-deep);
+  font-size: 11px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.food-item.spotlight {
+  background: #FFF5F7;
+  border-color: #ECC7CE;
+  box-shadow: 0 4px 14px rgba(158, 61, 75, 0.08);
+}
+
+.food-item.spotlight .food-name {
+  font-weight: 800;
+  color: var(--rose-deep);
+  letter-spacing: 0.5px;
+}
+
+.food-item.spotlight .food-check-icon {
+  background: var(--rose-deep);
+  color: #FFF;
+}
+
+.food-note {
+  font-size: 12.5px;
+  font-weight: 500;
+  color: var(--text-muted);
+  text-align: center;
+  padding: 4px 10px;
+}
+
+/* ==========================================================================
+   СЛАЙД 4: Скретч-лотерейка
+   ========================================================================== */
+
+.scratch-page-card {
+  text-align: center;
+}
+
+.scratch-card-header {
+  margin-bottom: 16px;
+}
+
+.scratch-label {
+  display: block;
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: var(--rose-deep);
+}
+
+.scratch-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin-top: 3px;
+}
+
+.scratch-container {
+  position: relative;
+  width: 100%;
+  max-width: 330px;
+  height: 165px;
+  margin: 0 auto;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.06);
+  border: 1px solid var(--card-border);
+}
+
+.scratch-secret {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #FFF8F9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  user-select: none;
+}
+
+.secret-text {
+  font-size: 14.5px;
+  line-height: 1.5;
+  color: var(--rose-deep);
+  font-weight: 600;
+}
+
+.secret-break {
+  display: block;
+  height: 8px;
+}
+
+#scratchCanvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  cursor: crosshair;
+  touch-action: none;
+}
+
+.scratch-hint {
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-top: 12px;
+}
+
+/* ==========================================================================
+   СЛАЙД 5: Nevada Player (YoungBoy NBA)
+   ========================================================================== */
+
+.nevada-player-card {
+  background: #FAF7F4;
+  border: 1px solid #EAE0D6;
+  border-radius: 16px;
+  padding: 18px;
+  margin: 16px 0 16px;
+}
+
+.player-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 16px;
+}
+
+.track-disc {
+  width: 44px;
+  height: 44px;
+  background: #1F1916;
+  border-radius: 50%;
+  position: relative;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+  transition: transform 0.5s linear;
+}
+
+.track-disc.spinning {
+  animation: spinDisc 3.5s linear infinite;
+}
+
+@keyframes spinDisc {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.disc-grooves {
+  position: absolute;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 1px dashed rgba(255,255,255,0.25);
+}
+
+.disc-center {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--rose-accent);
+  border: 2px solid #FFF;
+}
+
+.track-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text-dark);
+}
+
+.track-artist {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-top: 1px;
+}
+
+.custom-audio-controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.play-btn {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: var(--rose-deep);
+  color: #FFF;
+  border: none;
+  font-size: 13px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.play-btn:hover {
+  transform: scale(1.06);
+  background: #892F3C;
+}
+
+.progress-wrap {
+  flex: 1;
+  height: 6px;
+  background: #E4D7CC;
+  border-radius: 3px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.progress-bar {
+  height: 100%;
+  width: 0%;
+  background: var(--rose-deep);
+  border-radius: 3px;
+  transition: width 0.1s linear;
+}
+
+.time-display {
+  font-size: 11px;
+  color: var(--text-muted);
+  font-family: monospace;
+  min-width: 32px;
+}
+
+.music-note {
+  font-size: 12px;
+  color: var(--text-muted);
+  text-align: center;
+}
+
+/* ==========================================================================
+   СЛАЙД 6: МИМИМИМИМИ & Финал
+   ========================================================================== */
+
+.mimimi-box {
+  text-align: center;
+  margin-bottom: 22px;
+}
+
+.big-mimimi-btn {
+  background: var(--rose-deep);
+  color: #FFF;
+  border: none;
+  border-radius: 26px;
+  padding: 14px 34px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  cursor: pointer;
+  box-shadow: 0 10px 26px rgba(158, 61, 75, 0.3);
+  transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+  margin-bottom: 12px;
+}
+
+.big-mimimi-btn:hover {
+  transform: translateY(-2px);
+  background: #892F3C;
+}
+
+.big-mimimi-btn:active {
+  transform: scale(0.96);
+}
+
+.mimimi-score-row {
+  font-size: 12.5px;
+  color: var(--text-muted);
+  margin-bottom: 4px;
+}
+
+.mimimi-score-row strong {
+  color: var(--rose-deep);
+}
+
+.mimimi-phrase {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-dark);
+  min-height: 20px;
+  transition: opacity 0.15s ease;
+}
+
+.final-letter {
+  background: #FAF7F4;
+  border: 1px solid #EAE0D6;
+  border-radius: 16px;
+  padding: 22px 20px;
+  text-align: center;
+}
+
+.final-text {
+  font-size: 14.5px;
+  line-height: 1.65;
+  color: var(--text-dark);
+  font-weight: 500;
+  margin-bottom: 0;
+}
+
+/* ==========================================================================
+   НИЖНЯЯ ПАНЕЛЬ НАВИГАЦИИ (Назад / 6 точек / Дальше)
+   ========================================================================== */
+
+.zine-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 4px 0;
+}
+
+.nav-arrow-btn {
+  background: #FFF;
+  border: 1px solid var(--card-border);
+  border-radius: 20px;
+  padding: 9px 18px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-dark);
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+  transition: all 0.2s ease;
+}
+
+.nav-arrow-btn:hover:not(:disabled) {
+  border-color: #D6C2B4;
+  transform: translateY(-1px);
+}
+
+.nav-arrow-btn:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+.nav-arrow-btn.next {
+  background: var(--rose-deep);
+  color: #FFF;
+  border-color: var(--rose-deep);
+}
+
+.nav-arrow-btn.next:hover {
+  background: #892F3C;
+}
+
+.nav-dots {
+  display: flex;
+  gap: 7px;
+}
+
+.nav-dots .dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #D8CCC0;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.nav-dots .dot.active {
+  background: var(--rose-deep);
+  transform: scale(1.3);
+}
+
+/* Мобильный адаптив */
+@media (max-width: 480px) {
+  .zine-app {
+    padding: 14px 10px 32px;
+  }
+  .paper-card {
+    padding: 22px 16px 18px;
+  }
+  .cutout-hero-stage {
+    height: 220px;
+  }
+}

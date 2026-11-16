@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Для Кати 🤍</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Бесшовный кружевной фон -->
+  <div class="lace-ambient-bg"></div>
+
+  <!-- Контейнер для падающих плюшевых игрушек -->
+  <div class="falling-jelly-canvas" id="jellyFallContainer"></div>
+
+  <!-- ШАГ 0: Элегантная распаковка посылки -->
+  <section class="parcel-screen" id="parcelScreen">
+    <div class="parcel-stage">
+      <div class="parcel-package" id="parcelBox">
+        <!-- Шелковые ленты упаковки -->
+        <div class="ribbon-band horiz" id="ribbonH"></div>
+        <div class="ribbon-band vert" id="ribbonV"></div>
+
+        <div class="parcel-inner-content">
+          <div class="parcel-header-tag">
+            <span class="tag-route">DE &rarr; RU</span>
+            <div class="tag-title">ПОСЫЛКА ДЛЯ КАТИ</div>
+          </div>
+
+          <div class="central-knot" id="centralKnot">
+            <div class="knot-core"></div>
+          </div>
+
+          <button class="open-parcel-btn" id="btnOpenParcel">
+            <span class="btn-text">Открыть посылку</span>
+          </button>
+
+          <div class="parcel-hint">нажми, чтобы распаковать</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- МНОГОСТРАНИЧНЫЙ ЗИН (6 СЛАЙДОВ) -->
+  <main class="zine-app" id="zineApp">
+    <div class="zine-wrapper">
+      
+      <!-- Верхний статус-бар -->
+      <header class="zine-topbar">
+        <div class="zine-brand">ДЛЯ МОЕГО КОТЁНКА</div>
+        <div class="page-counter" id="pageCounter">1 / 6</div>
+      </header>
+
+      <!-- КОНТЕЙНЕР СТРАНИЦ -->
+      <div class="pages-container">
+        
+        <!-- СЛАЙД 1: Серый зайчик & Котёнок милее всех -->
+        <div class="zine-page active" id="page-1">
+          <div class="paper-card main-bunny-card">
+            
+            <div class="cutout-hero-stage" id="heroStage">
+              <img src="images/cutout-blossom-silver.png" alt="Зайчик" class="cutout-hero-img" id="heroBunnyImg">
+              <div class="bunny-thought-bubble" id="bunnyThought">мур-мур...</div>
+            </div>
+
+            <!-- Лаконичное сравнение -->
+            <div class="cuteness-verdict">
+              <div class="verdict-row">
+                <span class="verdict-label">Все плюшевые игрушки в мире</span>
+                <span class="verdict-score">10 / 10</span>
+              </div>
+              <div class="verdict-divider"></div>
+              <div class="verdict-row highlight">
+                <span class="verdict-label">Мой котёнок</span>
+                <span class="verdict-score">вне конкуренции ∞</span>
+              </div>
+            </div>
+
+            <p class="cuteness-punchline">
+              Они, конечно, классные, но мой котёнок всё равно в миллион раз милее всех этих плюшевых игрушек вместе взятых. Без вариантов.
+            </p>
+
+            <div class="jelly-actions-row">
+              <button class="jelly-rain-toggle-btn" id="btnJellyRain">
+                Запустить плюшевые игрушки
+              </button>
+            </div>
+            
+            <div class="stage-tip">нажми на зайца или кнопку, чтобы посыпались плюшевые игрушки</div>
+          </div>
+        </div>
+
+        <!-- СЛАЙД 2: Билет домой -->
+        <div class="zine-page" id="page-2">
+          <div class="paper-card ticket-page-card">
+            
+            <div class="ticket-header">
+              <span class="t-badge">BOARDING PASS</span>
+              <span class="t-sub">EXCLUSIVE ROUTE</span>
+            </div>
+
+            <div class="ticket-route">
+              <div class="route-point">
+                <div class="city-code">DE</div>
+                <div class="city-name">Германия</div>
+              </div>
+              <div class="flight-path">
+                <span class="flight-line"></span>
+                <span class="flight-icon">✈</span>
+                <span class="flight-line"></span>
+              </div>
+              <div class="route-point right">
+                <div class="city-code">HOME</div>
+                <div class="city-name">Ко мне на ручки</div>
+              </div>
+            </div>
+            
+            <div class="ticket-plan">
+              <div class="plan-label">ПЛАН ПО ПРИБЫТИИ</div>
+              <ul class="plan-bullets">
+                <li><span class="bullet-num">1</span> <strong>Обнять до тошноты</strong></li>
+                <li><span class="bullet-num">2</span> <strong>Няшиться 24/7</strong></li>
+                <li><span class="bullet-num">3</span> <strong>Зацеловать наглухо</strong> всё лицо</li>
+                <li><span class="bullet-num">4</span> <strong>Облизать всю</strong> (потому что самая вкусная)</li>
+              </ul>
+            </div>
+
+            <div class="ticket-barcode">
+              <div class="barcode-lines"></div>
+              <span class="barcode-num">KATE-WHITE-001</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- СЛАЙД 3: Что мы будем есть (Еда по прибытии) -->
+        <div class="zine-page" id="page-3">
+          <div class="paper-card food-page-card">
+            
+            <div class="card-intro">
+              <h2 class="card-heading">Что мы будем есть</h2>
+              <p class="card-desc">Официальное гастрономическое расписание</p>
+            </div>
+
+            <div class="food-checklist">
+              <div class="food-item">
+                <span class="food-check-icon">✓</span>
+                <span class="food-name">Сосиски в микроволновке с пивом</span>
+              </div>
+
+              <div class="food-item">
+                <span class="food-check-icon">✓</span>
+                <span class="food-name">Твои печеньки</span>
+              </div>
+
+              <div class="food-item">
+                <span class="food-check-icon">✓</span>
+                <span class="food-name">Овощные суши</span>
+              </div>
+
+              <div class="food-item spotlight">
+                <span class="food-check-icon">★</span>
+                <span class="food-name">ВСЮ ТЕБЯ</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- СЛАЙД 4: Скретч-лотерейка -->
+        <div class="zine-page" id="page-4">
+          <div class="paper-card scratch-page-card">
+            
+            <div class="scratch-card-header">
+              <span class="scratch-label">СЕКРЕТНЫЙ СЛОЙ</span>
+              <h3 class="scratch-title">Сотри монеткой или пальцем</h3>
+            </div>
+            
+            <div class="scratch-container" id="scratchContainer">
+              <div class="scratch-secret">
+                <div class="secret-text">
+                  Ты у меня самая лучшая, самая красивая и самая аппетитная девочка на свете.
+                  <span class="secret-break"></span>
+                  Обожаю тебя безумно и жду каждую секунду. 🤍
+                </div>
+              </div>
+              <canvas id="scratchCanvas" width="320" height="170"></canvas>
+            </div>
+            <div class="scratch-hint" id="scratchHint">потри серый слой пальцем или курсором &uarr;</div>
+          </div>
+        </div>
+
+        <!-- СЛАЙД 5: Трек Nevada (YoungBoy NBA) -->
+        <div class="zine-page" id="page-5">
+          <div class="paper-card music-page-card">
+            
+            <div class="card-intro">
+              <h2 class="card-heading">Наш трек</h2>
+              <p class="card-desc">Включи в наушниках</p>
+            </div>
+
+            <div class="nevada-player-card">
+              <div class="player-header">
+                <div class="track-disc" id="trackDisc">
+                  <div class="disc-grooves"></div>
+                  <div class="disc-center"></div>
+                </div>
+                <div class="track-meta">
+                  <div class="track-title">Nevada</div>
+                  <div class="track-artist">YoungBoy Never Broke Again</div>
+                </div>
+              </div>
+
+              <audio id="nevadaAudio" src="nevada.mp3" preload="metadata"></audio>
+
+              <div class="custom-audio-controls">
+                <button class="play-btn" id="btnPlayNevada" aria-label="Play/Pause">
+                  <span id="playIcon">▶</span>
+                </button>
+                <div class="progress-wrap" id="progressWrap">
+                  <div class="progress-bar" id="progressBar"></div>
+                </div>
+                <span class="time-display" id="timeDisplay">0:00</span>
+              </div>
+            </div>
+
+            <div class="music-note">Тот самый трек, который всегда с нами</div>
+          </div>
+        </div>
+
+        <!-- СЛАЙД 6: МИМИМИМИМИ & Финал -->
+        <div class="zine-page" id="page-6">
+          <div class="paper-card final-page-card">
+            
+            <div class="mimimi-box">
+              <button class="big-mimimi-btn" id="btnBigMimimi">
+                МИМИМИМИМИ!
+              </button>
+
+              <div class="mimimi-score-row">
+                <span>Уровень милоты:</span>
+                <strong id="mimimiScore">100%</strong>
+              </div>
+              <div class="mimimi-phrase" id="mimimiToast">Самая вкусная девочка на планете.</div>
+            </div>
+
+            <div class="final-letter">
+              <p class="final-text">
+                Германия — это временно. Всё у нас будет хорошо: скоро мы съедемся, и у нас будет замечательная и весёлая жизнь. Я тобой очень горжусь, мой любимый заяц. 🤍
+              </p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- НИЖНЯЯ ПАНЕЛЬ НАВИГАЦИИ -->
+      <nav class="zine-nav">
+        <button class="nav-arrow-btn prev" id="btnPrev" disabled>
+          &larr; Назад
+        </button>
+
+        <div class="nav-dots" id="navDots">
+          <span class="dot active" data-page="1"></span>
+          <span class="dot" data-page="2"></span>
+          <span class="dot" data-page="3"></span>
+          <span class="dot" data-page="4"></span>
+          <span class="dot" data-page="5"></span>
+          <span class="dot" data-page="6"></span>
+        </div>
+
+        <button class="nav-arrow-btn next" id="btnNext">
+          Дальше &rarr;
+        </button>
+      </nav>
+
+    </div>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
+
+  <script src="script.js"></script>
+</body>
+</html>
+
+  <script src="script.js"></script>
+</body>
+</html>
